@@ -23,7 +23,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
 
   const patchFriend = async () => {
     const response = await fetch(
-      `https://snapgram.onrender.com/${_id}/${friendId}`,
+      `https://snapgram.onrender.com/users/${_id}/${friendId}`,
       {
         method: "PATCH",
         headers: {

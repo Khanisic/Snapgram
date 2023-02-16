@@ -39,7 +39,7 @@ const PostWidget = ({
   const primary = palette.primary.main;
 
   const patchLike = async () => {
-    const response = await fetch(`https://snapgram.onrender.com/${postId}/like`, {
+    const response = await fetch(`https://snapgram.onrender.com/posts/${postId}/like`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,

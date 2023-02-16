@@ -19,7 +19,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
 
   const getUserPosts = async () => {
     const response = await fetch(
-      `https://snapgram.onrender.com/${userId}/posts`,
+      `https://snapgram.onrender.com/users/${userId}/posts`,
       {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
