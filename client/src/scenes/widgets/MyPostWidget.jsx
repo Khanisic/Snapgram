@@ -60,7 +60,7 @@ const MyPostWidget = ({ picturePath }) => {
       formData.append("picturePath", pic);
     }
 
-    const response = await fetch(`http://localhost:3001/posts`, {
+    const response = await fetch(`https://snapgram.onrender.com/posts`, {
       method: "POST",
       headers: { Authorization: `Bearer ${token}` },
       body: formData
