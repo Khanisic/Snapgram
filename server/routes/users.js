@@ -1,4 +1,5 @@
 import express from "express";
+import { getUserPosts } from "../controllers/posts.js";
 import {
   getUser,
   getUserFriends,
@@ -11,7 +12,7 @@ const router = express.Router();
 /* READ */
 router.get("/:id", verifyToken, getUser);
 router.get("/:id/friends", verifyToken, getUserFriends);
-
+router.get("/:userId/posts", getUserPosts);
 /* UPDATE */
 router.patch("/:id/:friendId", verifyToken, addRemoveFriend);
 
