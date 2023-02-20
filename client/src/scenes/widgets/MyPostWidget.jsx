@@ -45,7 +45,7 @@ const MyPostWidget = ({ picturePath }) => {
 
       imgData.append('file', imgUrl)
       imgData.append('upload_preset', 'snapgram')
-      const res = await fetch(`https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_NAME}/image/upload`, {
+      const res = await fetch(`https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_NAME}/image/upload`, {
         method: 'POST',
         body: imgData
       })

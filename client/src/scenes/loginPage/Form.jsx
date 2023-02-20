@@ -54,14 +54,16 @@ const Form = () => {
   const isLogin = pageType === "login";
   const isRegister = pageType === "register";
   const [imgUrl, setImgUrl] = useState("")
+  const [loading, setLoading] = useState(false)
+  const [errorMsg, setErrorMsg] = useState("")
 
   const register = async (values, onSubmitProps) => {
-
+    setLoading(true)
     const imgData = new FormData();
 
     imgData.append('file', imgUrl)
     imgData.append('upload_preset', 'snapgram')
-    const res = await fetch(`https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_NAME}/image/upload`, {
+    const res = await fetch(`https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_NAME}/image/upload`, {
       method: 'POST',
       body: imgData
     })
@@ -82,7 +84,7 @@ const Form = () => {
     );
     const savedUser = await savedUserResponse.json();
     onSubmitProps.resetForm();
-
+    setLoading(false)
     if (savedUser) {
       setPageType("login");
     }
@@ -95,8 +97,9 @@ const Form = () => {
       body: JSON.stringify(values),
     });
     const loggedIn = await loggedInResponse.json();
+
     onSubmitProps.resetForm();
-    if (loggedIn) {
+    if (loggedIn.user) {
       dispatch(
         setLogin({
           user: loggedIn.user,
@@ -104,6 +107,8 @@ const Form = () => {
         })
       );
       navigate("/home");
+    } else {
+      setErrorMsg(loggedIn.msg)
     }
   };
 
@@ -235,8 +240,23 @@ const Form = () => {
                 "&:hover": { color: palette.primary.main },
               }}
             >
-              {isLogin ? "LOGIN" : "REGISTER"}
+              {loading ? 'Loading...' : isLogin ? "LOGIN" : "REGISTER"}
             </Button>
+
+            <Typography
+              sx={{
+                textAlign: "center",
+                fontSize : "24px",
+                m: "2rem 0",
+                "&:hover": {
+                  cursor: "pointer",
+                  color: palette.primary.light,
+                },
+              }}
+            >
+              {errorMsg}
+            </Typography>
+
             <Typography
               onClick={() => {
                 setPageType(isLogin ? "register" : "login");
